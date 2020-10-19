@@ -28,6 +28,18 @@ Class Attendance_Model extends CI_Model {
             );
     
             $this->db->insert('attendance', $data);
+
+            $this->db->select('days_attended');
+            $this->db->from('student');
+            $this->db->where('student_id', $student_id);
+            $num_of_days_attended = $this->db->get()->row('days_attended');
+
+            $num_of_days_attended = $num_of_days_attended + 1;
+            $update_data = array (
+                'days_attended' => $num_of_days_attended
+            );
+            $this->db->where('student_id', $student_id);
+            $this->db->update('student', $update_data);
         }
     }
 

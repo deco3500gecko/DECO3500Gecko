@@ -49,28 +49,42 @@ class Welcome extends CI_Controller {
 		}
 	}
 
-	public function change_date() {
-		$date = $this->input->post('date');
-		$student_list = $this->Student_Model->get_students('1-1');
-		$attended_students = $this->Attendance_Model->get_class_attendance($date);
-		$attended_student_ids = array_column($attended_students, 'student_id');
+	// public function change_date() {
+	// 	$date = $this->input->post('date');
+	// 	$student_list = $this->Student_Model->get_students('1-1');
+	// 	$attended_students = $this->Attendance_Model->get_class_attendance($date);
+	// 	$attended_student_ids = array_column($attended_students, 'student_id');
+	// 	$data['student_list'] = $student_list;
+	// 	$data['attended_students'] = $attended_student_ids;
+	// 	$data['date'] = $date;
+	// 	$this->load->view('welcome_message', $data);
+	// }
 
-		$data['student_list'] = $student_list;
-		$data['attended_students'] = $attended_student_ids;
-		$data['date'] = $date;
-		$this->load->view('welcome_message', $data);
-	}
+	// public function change_class() {
+	// 	$class = $this->input->post('class');
+	// 	$date = $this->input->post('date');
+	// 	$student_list = $this->Student_Model->get_students($class);
+	// 	$attended_students = $this->Attendance_Model->get_class_attendance($date);
+	// 	$attended_student_ids = array_column($attended_students, 'student_id');
+	// 	$data['student_list'] = $student_list;
+	// 	$data['attended_students'] = $attended_student_ids;
+	// 	$data['date'] = $date;
+	// 	$this->load->view('welcome_message', $data);
+	// }
 
-	public function change_class() {
+	public function classes() {
 		$class = $this->input->post('class');
-		$date = $this->input->post('date');
+		if (!isset($class)) {
+			$class = '1-1';
+		}
 		$student_list = $this->Student_Model->get_students($class);
-		$attended_students = $this->Attendance_Model->get_class_attendance($date);
-		$attended_student_ids = array_column($attended_students, 'student_id');
+
+		$classes = $this->Student_Model->get_classes();
 
 		$data['student_list'] = $student_list;
-		$data['attended_students'] = $attended_student_ids;
-		$data['date'] = $date;
-		$this->load->view('welcome_message', $data);
+		$data['class'] = $class;
+		$data['classes'] = $classes;
+
+		$this->load->view('classes', $data);
 	}
 }

@@ -87,4 +87,30 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('classes', $data);
 	}
+
+	public function edit_profile() {
+		$name = $this->input->post('name');
+		$id = $this->input->post('id');
+		$dietary = $this->input->post('dietary');
+		$extra = $this->input->post('extra');
+		$team = $this->input->post('team');
+
+		$data = array (
+			'student_id' => $id,
+			'name' => $name,
+			'team' => $team,
+			'dietary' => $dietary,
+			'extra' => $extra
+		);
+
+		$this->Student_Model->edit_profile($data);
+
+		$this->classes();
+	}
+
+	public function view_profile($student_id) {
+		$data = $this->Student_Model->get_student($student_id);
+
+		$this->load->view('view_profile', $data);
+	}
 }

@@ -24,6 +24,18 @@ Class Student_Model extends CI_Model {
         return $array;
     }
 
+    public function edit_profile($data) {
+        $this->db->where('student_id', $data['student_id']);
+        $this->db->update('student', $data);
+    }
+
+    public function get_student($id) {
+        $this->db->select('*');
+        $this->db->from('student');
+        $this->db->where('student_id', $id);
+        return $this->db->get()->row();
+    }
+
     // public function get_attendance_rates($class) {
     //     $num_of_school_days = ;
 

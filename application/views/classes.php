@@ -103,6 +103,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div id="main">
                 <h2>Classes</h2>
 
+                <?php 
+				$attributes = ['id' => 'class-form'];
+                echo form_open('Welcome/classes', $attributes);
+                echo form_dropdown('class', $classes, $class);
+                echo '<input type="submit" name="submit" value="Change" />';
+                echo form_close();
+				?>
+
                 <button type="button" class="btn btn-info">Add student</button>
 
                 <div class="input-group md-form form-sm form-1 pl-0">
@@ -133,7 +141,83 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td><?php echo $student->team; ?></td>
                             <td><?php echo $student->dietary; ?></td>
                             <td><?php echo $student->extra; ?></td>
+                            <td>
+                                <div class="dropdown show">
+                                    <a class="btn btn-outline-secondary btn-sm" href="#" role="button" id="dropdownMenuLink<?php echo $student->student_id; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Details
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink<?php echo $student->student_id; ?>">
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal<?php echo $student->student_id; ?>" href="">Edit Profile</a>
+                                        <a class="dropdown-item" href="<?php echo base_url('Welcome/view_profile/' . $student->student_id); ?>">View Profile</a>
+                                        <a class="dropdown-item" href="#">Remove Student</a>
+                                    </div>
+                                </div>
+                            </td>
 						</tr>
+
+                        <div class="modal fade" id="exampleModal<?php echo $student->student_id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit Student</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php echo form_open('Welcome/edit_profile'); ?>
+                                            <div class="form-row mb-3">
+                                                <div class="col">
+                                                    <input name="name" type="text" class="form-control" placeholder="Name" value="<?php echo $student->name; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row mb-3">
+                                                <div class="col">
+                                                    <input type="email" class="form-control" placeholder="Email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row mb-3">
+                                                <div class="col">
+                                                    <input name="id" type="text" class="form-control" placeholder="Student ID" value="<?php echo $student->student_id; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row mb-3">
+                                                <div class="col">
+                                                    <input name="dietary" type="text" class="form-control" placeholder="Dietary" value="<?php echo $student->dietary; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row mb-3">
+                                                <div class="col">
+                                                    <input name="extra" type="text" class="form-control" placeholder="Extra" value="<?php echo $student->extra; ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row mb-4">
+                                                <div class="col">
+                                                    <select name="team" class="form-control">
+                                                        <option value="" selected disabled hidden>Team</option>
+                                                        <option value="Red">Red</option>
+                                                        <option value="Yellow">Yellow</option>
+                                                        <option value="Green">Green</option>
+                                                        <option value="Blue">Blue</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-row">
+                                                <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                                                <input type="submit" class="btn btn-primary" value="Save changes">
+                                            </div>
+                                        <?php echo form_close(); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 						<?php } ?>
                     </tbody>
                 </table>
@@ -142,4 +226,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
 
     </div>
+
+
 </body>

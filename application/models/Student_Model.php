@@ -36,26 +36,43 @@ Class Student_Model extends CI_Model {
         return $this->db->get()->row();
     }
 
-    // public function get_attendance_rates($class) {
-    //     $num_of_school_days = ;
+    public function add_student($data) {
+        $this->db->insert('student', $data);
+    }
 
-    //     // gets students from the chosen class
-    //     $this->db->select('*');
-    //     $this->db->from('student');
-    //     $this->db->where('class', $class);
-    //     $query = $this->db->get();
-    //     $students_from_class = $query->result();
-        
-    //     foreach ($students_from_class as $student) {
-    //         $this->db->select('*');
-    //         $this->db->from('attendance');
-    //         $this->db->where('id', $student->student_id);
-    //         $query = $this->db->get();
-    //         $num_of_attended_days = $query->num_rows();
+    public function remove_student($id) {
+        $this->db->where('student_id', $id);
+        $this->db->delete('student');
+    }
 
-    //         $percentage = $num_of_attended_days / $num_of_school_days;
-    //     }
-    // }
+    public function get_student_names($class) {
+        $this->db->select('name');
+        $this->db->from('student');
+        $this->db->where('class', $class);
+        $query = $this->db->get();
+
+        $array = array();
+        foreach ($query->result_array() as $row) {
+            $array[] = $row['name'];
+        }
+
+        return $array;
+    }
+
+    public function get_teams() {
+        $this->db->distinct();
+        $this->db->select('team');
+        $this->db->from('student');
+        $query = $this->db->get();
+
+        $array = array();
+        foreach ($query->result_array() as $row) {
+            $array[] = $row['team'];
+        }
+
+        return $array;
+    }
+    
 
 }
 

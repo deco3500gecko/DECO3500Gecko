@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div class="d-flex" id="wrapper">
 
-		<div class="border-right bg-light" id="sidebar-wrapper">
+		<div class="border-right border-bottom bg-light" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom" style="background-color: #6ac6db">Class Buddy</div>
 
             <h1 class="pt-3 pl-2 m-0">Roll Call</h1>
@@ -255,13 +255,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">Dashboard</a>
+                                <a class="nav-link" href="<?php echo base_url('Welcome/'); ?>">Dashboard</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php echo base_url('Welcome/classes'); ?>">Classes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Teams</a>
+                                <a class="nav-link" href="<?php echo base_url('Welcome/teams'); ?>">Teams</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Rewards</a>

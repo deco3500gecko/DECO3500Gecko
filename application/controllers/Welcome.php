@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
 		$this->load->model('Attendance_Model');
 		$this->load->model('Student_Model');
 		$this->load->model('Team_Model');
+		$this->load->model('Reward_Model');
 
 		$this->load->helper('form');
 	}
@@ -33,12 +34,18 @@ class Welcome extends CI_Controller {
 
 		$classes = $this->Student_Model->get_classes();
 
+		$this->update_team_points();
+
+		$data['teams'] = $this->Team_Model->get_teams($class);
+
+		$data['team_attendance'] = $this->Attendance_Model->get_team_attendance($class, $date);
+		
 		$data['student_list'] = $student_list;
 		$data['attended_students'] = $attended_student_ids;
 		$data['date'] = $date;
 		$data['class'] = $class;
 		$data['classes'] = $classes;
-		
+
 		$this->load->view('welcome_message', $data);
 	}
 
@@ -48,6 +55,7 @@ class Welcome extends CI_Controller {
 		foreach ($student_ids as $student_id) {
 			$this->Attendance_Model->insert_attendance_data($student_id, $date);
 		}
+		$this->index();
 	}
 
 	public function classes() {
@@ -141,6 +149,8 @@ class Welcome extends CI_Controller {
 			$team_members[$team->team_name] = $this->Team_Model->get_team_members($team->team_name, $class);
 		}
 
+		$this->update_team_points();
+
 		$data['student_list'] = $student_list;
 		$data['class'] = $class;
 		$data['classes'] = $classes;
@@ -149,6 +159,8 @@ class Welcome extends CI_Controller {
 
 		$this->load->view('teams', $data);
 	}
+
+	
 
 	public function edit_team() {
 		$team_name = $this->input->post('team_name');
@@ -248,5 +260,91 @@ class Welcome extends CI_Controller {
 		}
 
 		$this->teams();
+	}
+
+	public function update_team_points() {
+		$classes = $this->Student_Model->get_classes();
+
+		foreach ($classes as $row) {
+			$teams = $this->Team_Model->get_teams($row);
+
+			foreach ($teams as $team) {
+				$this->Team_Model->update_team_points($team->team_id, $team->team_name, $row);
+			}
+		}
+	}
+
+	public function rewards($status) {
+		$class = $this->input->post('class');
+		if (!isset($class)) {
+			$class = '1-1';
+		}
+
+		$classes = $this->Student_Model->get_classes();
+
+		$teams = $this->Team_Model->get_ordered_teams($class);
+
+		if ($status == 'unredeemed') {
+			$rewards = $this->Reward_Model->get_unredeemed_rewards($class);
+		} else {
+			$rewards = $this->Reward_Model->get_redeemed_rewards($class);
+		}
+
+		$data = array (
+			'class' => $class,
+			'classes' => $classes,
+			'rewards' => $rewards,
+			'status' => $status,
+			'teams' => $teams,
+		);
+
+		$this->load->view('rewards', $data);
+	}
+
+	public function redeem_reward($reward_id) {
+		$this->Reward_Model->redeem_reward($reward_id);
+
+		$this->rewards('redeemed');
+	}
+	
+	public function unredeem_reward($reward_id) {
+		$this->Reward_Model->unredeem_reward($reward_id);
+
+		$this->rewards('unredeemed');
+	}
+
+	public function add_reward() {
+		$reward_name = $this->input->post('reward_name');
+		$reward_description = $this->input->post('reward_description');
+		$class = $this->input->post('class');
+
+		$random_int = rand();
+		$reward_id = 'reward' . $random_int;
+
+		while ($this->Reward_Model->does_reward_exist($reward_id)) {
+			$random_int = rand();
+			$reward_id = 'reward' . $random_int;
+		}
+		
+		$data = array (
+			'reward_id' => $reward_id,
+			'reward_name' => $reward_name,
+			'reward_description' => $reward_description,
+			'redeemed' => 0,
+			'class' => $class
+		);
+
+		$this->Reward_Model->add_reward($data);
+
+		$this->rewards('unredeemed');
+	}
+
+	public function remove_reward() {
+		$reward_id = $this->input->post('reward_id');
+		$class = $this->input->post('class');
+
+		$this->Reward_Model->remove_reward($reward_id);
+
+		$this->rewards('unredeemed');
 	}
 }

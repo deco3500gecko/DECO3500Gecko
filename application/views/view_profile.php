@@ -113,7 +113,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </nav>
 
             <div id="main">
-                <h2><?php echo $name; ?></h2>
+                <div class="row card align-middle" style="height: 100px;">
+                    <h2><?php echo $name; ?></h2>
+                </div>
+                
 
                 <div class="row mt-4">
                     <div class="col-3 card mr-2" id="student-info-container">

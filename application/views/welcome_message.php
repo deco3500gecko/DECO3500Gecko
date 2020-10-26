@@ -7,6 +7,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/80dbd8c441.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 		
 	<meta charset="utf-8">
 	<title>Welcome to CodeIgniter</title>
@@ -115,27 +117,115 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 	
 	#red-rocket {
-		bottom: <?php echo 100*2; ?>px;
-		left: 200px;
+		<?php
+		$red_points = 0;
+
+		foreach ($teams as $team) {
+			if ($team->team_name == 'Red') {
+				$red_points = $team->points;
+			}
+		}
+		?>
+		bottom: <?php echo $red_points * 6.65; ?>px;
+		left: <?php echo 200 + $red_points * 3; ?>px;
 		transform: rotate(25deg);
+		animation-name: animateRedRocket;
+		animation-duration: 4s;
 	}
 
 	#yellow-rocket {
-		bottom: 100px;
-		left: 500px;
+		<?php
+		$yellow_points = 0;
+
+		foreach ($teams as $team) {
+			if ($team->team_name == 'Yellow') {
+				$yellow_points = $team->points;
+			}
+		}
+		?>
+		bottom: <?php echo $yellow_points * 6; ?>px;
+		left: <?php echo 510 + $yellow_points * 1; ?>px;
 		transform: rotate(10deg);
+		animation-name: animateYellowRocket;
+		animation-duration: 4s;
 	}
 
 	#green-rocket {
-		bottom: 100px;
-		left: 800px;
+		<?php
+		$green_points = 0;
+
+		foreach ($teams as $team) {
+			if ($team->team_name == 'Green') {
+				$green_points = $team->points;
+			}
+		}
+		?>
+		bottom: <?php echo $green_points * 6; ?>px;
+		left: <?php echo 825 - $green_points * 1; ?>px;
 		transform: rotate(-10deg);
+		animation-name: animateGreenRocket;
+		animation-duration: 4s;
 	}
 
 	#blue-rocket {
-		bottom: 100px;
-		left: 1100px;
+		<?php
+		$blue_points = 0;
+
+		foreach ($teams as $team) {
+			if ($team->team_name == 'Blue') {
+				$blue_points = $team->points;
+			}
+		}
+		?>
+		bottom: <?php echo $blue_points * 6.65; ?>px;
+		left: <?php echo 1135 - $blue_points * 3; ?>px;
 		transform: rotate(-25deg);
+		animation-name: animateBlueRocket;
+		animation-duration: 4s;
+	}
+
+	@keyframes animateRedRocket {
+		0% {
+			bottom: 0px;
+			left: 200px;
+		}
+		100% {
+			bottom: <?php echo $red_points * 6.65; ?>px;
+			left: <?php echo 200 + $red_points * 3; ?>px;
+		}
+	}
+
+	@keyframes animateYellowRocket {
+		0% {
+			bottom: 0px;
+			left: 510px;
+		}
+		100% {
+			bottom: <?php echo $yellow_points * 6; ?>px;
+			left: <?php echo 510 + $yellow_points * 1; ?>px;
+		}
+	}
+
+	@keyframes animateGreenRocket {
+		0% {
+			bottom: 0px;
+			left: 825px;
+		}
+		100% {
+			bottom: <?php echo $green_points * 6; ?>px;
+			left: <?php echo 825 - $green_points * 1; ?>px;
+		}
+	}
+
+	@keyframes animateBlueRocket {
+		0% {
+			bottom: 0px;
+			left: 1140px;
+		}
+		100% {
+			bottom: <?php echo $blue_points * 6.65; ?>px;
+			left: <?php echo 1135 - $blue_points * 3; ?>px;
+		}
 	}
 
 	.scene {
@@ -149,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	.scene i {
 		position: absolute;
-		top: 500px;
+		top: 100px;
 		background: rgba(255,255,255,0.5);
 		animation: animateStars linear infinite;
 	}
@@ -185,6 +275,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		top: -120px;
 	}
 
+	#chart-button {
+		width: 75px;
+		height: 75px;
+		color: white;
+		background-color: transparent;
+		border: white 2px solid;
+		border-radius: 15px;
+		margin-top: 20px;
+		margin-left: 20px;
+		position: absolute;
+		z-index: 999;
+	}
 	</style>
 </head>
 <body>
@@ -264,7 +366,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <a class="nav-link" href="<?php echo base_url('Welcome/teams'); ?>">Teams</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Rewards</a>
+                                <a class="nav-link" href="<?php echo base_url('Welcome/rewards/unredeemed'); ?>">Rewards</a>
 							</li>
 							<li class="nav-item">
                                 <a class="nav-link" href="#">Settings</a>
@@ -275,6 +377,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </nav>
 
             <div id="main">
+				<button type="button" id="chart-button" data-toggle="modal" data-target="#barChartModal"><i class="far fa-chart-bar fa-3x"></i></button>
+
 				<div class="scene">
 					<div id="moon-container">
 						<img id="moon" src="<?php echo base_url('images/moon.png'); ?>" alt="moon">
@@ -296,11 +400,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<img id="blue-rocket" src="<?php echo base_url('images/rocket-blue.png'); ?>" alt="rocket">
 					</div>
 				</div>
+
+				<div class="modal fade" id="barChartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Today's Attendance</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<canvas id="myChart" width="800" height="600"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
 				
 			</div>
         </div>
 	</div>
 
+	<div class="modal fade" id="barChartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Today's Attendance</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<canvas id="myChart" width="800" height="600"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </body>
 
 <script>
@@ -312,12 +448,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			let star = document.createElement('i');
 			let x = Math.floor(Math.random() * window.innerWidth);
 
-			let duration = Math.random() * 1.5;
+			let duration = Math.random() * 2;
 			let h = Math.random() * 50;
 
 			star.style.left = x + 'px';
 			star.style.width = 1 + 'px';
-			star.style.height = 50 + h + 'px';
+			star.style.height = 100 + h + 'px';
 			star.style.animationDuration = duration + 's';
 
 			scene.appendChild(star);
@@ -325,5 +461,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 	}
 	stars();
+
+	$("#barChartModal").on('shown.bs.modal', function() {
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Red', 'Yellow', 'Green', 'Blue'],
+			datasets: [{
+				label: '#',
+				data: [<?php echo $team_attendance['Red']; ?>, <?php echo $team_attendance['Yellow']; ?>, <?php echo $team_attendance['Green']; ?>, <?php echo $team_attendance['Blue']; ?>],
+				backgroundColor: [
+					'rgba(255, 0, 0, 0.8)',
+					'rgba(255, 255, 0, 0.8)',
+					'rgba(0, 128, 0, 0.8)',
+					'rgba(0, 0, 255, 0.8)',
+				],
+				borderColor: [
+					'rgba(255, 0, 0, 1)',
+					'rgba(225, 225, 0, 1)',
+					'rgba(0, 128, 0, 1)',
+					'rgba(0, 0, 255, 1)',
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				xAxes: [{
+					gridLines: {
+						color: "rgba(0, 0, 0, 0)",
+					}
+				}],
+				yAxes: [{
+					ticks: {
+						min: 0,
+						stepSize: 1,
+					},
+					gridLines: {
+						color: "rgba(0, 0, 0, 0)",
+					}
+
+				}]
+			},
+			animation: {
+				duration: 2000,
+				easing: 'linear',
+			},
+		}
+	});
+	});
 </script>
 </html>

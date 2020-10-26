@@ -93,6 +93,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         background-color: DodgerBlue !important;
         color: #ffffff;
     }
+
+    .add-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
     </style>
 </head>
 
@@ -119,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a class="nav-link" href="<?php echo base_url('Welcome/teams'); ?>">Teams</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Rewards</a>
+                            <a class="nav-link" href="<?php echo base_url('Welcome/rewards/unredeemed'); ?>">Rewards</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Settings</a>
@@ -129,6 +135,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </nav>
 
             <div id="main">
+
+                <div class="row">
+                <div class="col">
                 <h2>Classes</h2>
 
                 <?php 
@@ -139,7 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 echo form_close();
 				?>
 
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addStudentModal">Add student</button>
+                <button type="button" class="btn btn-info add-button" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
 
                 <form autocomplete="off" class="input-group md-form form-sm form-1 pl-0">
                     <div class="input-group-prepend">
@@ -151,7 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                 </form>
 
-                <table class="table table-hover">
+                <table class="table table-hover mt-4">
                     <thead>
                         <tr class="table-secondary">
                             <th scope="col">STUDENT NAME</th>
@@ -287,6 +296,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<?php } ?>
                     </tbody>
                 </table>
+
+                </div>
+                </div>
+
             </div>
             
         </div>

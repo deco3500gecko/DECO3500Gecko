@@ -12,7 +12,7 @@ Link to website: http://glennb19.sg-host.com/
 
 ## Poster
 
-Link to download poster: https://smallpdf.com/shared#st=e19c4519-7889-425f-a77c-f91ba6e22dd8&fn=DECO3500+Poster.pdf&ct=1603963718024&tl=share-document&rf=link
+Link to download poster: https://drive.google.com/file/d/1-AhA1fFjNSMepxISTyTRNykaMHG0IP_f/view?usp=sharing
 
 ![DECO3500 Poster](https://user-images.githubusercontent.com/45459833/97549992-cc10ed80-1a1c-11eb-9f86-0f52721706c0.png)
 

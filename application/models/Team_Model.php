@@ -59,6 +59,16 @@ Class Team_Model extends CI_Model {
         $wins = $this->get_team_wins($team_id);
         if ($points >= 100) {
             $wins += 1;
+            $points = 0;
+
+            foreach ($members as $member) {
+                $new_student_data = array (
+                    'student_id' => $member->student_id,
+                    'points' => 0,
+                );
+
+                $this->Student_Model->edit_profile($new_student_data);
+            }
         }
 
         $data = array (

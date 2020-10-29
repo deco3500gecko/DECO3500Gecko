@@ -8,6 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/80dbd8c441.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     
     <style>
     body {
@@ -94,16 +95,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('Welcome/'); ?>">Dashboard</a>
+                            <a class="nav-link" href="<?php echo base_url('Welcome/dashboard'); ?>">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('Welcome/classes'); ?>">Classes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url('Welcome/teams'); ?>">Teams</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="<?php echo base_url('Welcome/'); ?>">Classes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Teams</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Rewards</a>
+                            <a class="nav-link active" href="<?php echo base_url('Welcome/rewards/unredeemed'); ?>">Rewards</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Settings</a>
@@ -159,7 +160,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row mb-2" id="attendance-container-row">
                             <div class="col card mr-2">
                                 <h4 class="card-title">Total Current Term Days Attended</h4>
-                                <p><?php echo $points; ?> days</p>
+                                <p><?php echo $days_attended; ?> days</p>
                             </div>
 
                             <div class="col card ml-2">
@@ -171,6 +172,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="row mt-3">
                             <div class="col card" id="attendance-analytics">
                                 <h4 class="card-title">Attendance Analytics</h4>
+                                <div id="calendar_basic" style="width: 800px; "></div>
                             </div>
                         </div>
                     </div>
@@ -183,3 +185,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 </body>
+
+<script>
+    google.charts.load("current", {packages:["calendar"]});
+      google.charts.setOnLoadCallback(drawChart);
+
+   function drawChart() {
+       var dataTable = new google.visualization.DataTable();
+       dataTable.addColumn({ type: 'date', id: 'Date' });
+       dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+       dataTable.addRows([
+          // Many rows omitted for brevity.
+          [ new Date(2020, 0, 1), 1 ],
+          <?php 
+            foreach ($dates as $date) {
+                $date = new DateTime($date);
+                echo '[new Date(' . $date->format('Y, m-1, d') . '), 30000],';
+            }
+          ?>
+        ]);
+
+       var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
+
+       var options = {
+            title: "<?php echo $name; ?> Attendance",
+            calendar: {
+                cellSize: 15,
+            },
+            cellColor: {
+                backgroundColor: '#76a7fa',
+                color: '#a0c3ff'
+            }
+       };
+
+       chart.draw(dataTable, options);
+   }
+
+
+</script>

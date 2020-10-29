@@ -116,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('Welcome/'); ?>">Dashboard</a>
+                            <a class="nav-link" href="<?php echo base_url('Welcome/dashboard'); ?>">Dashboard</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="<?php echo base_url('Welcome/classes'); ?>">Classes</a>

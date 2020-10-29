@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                     <ul class="nav navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url('Welcome/'); ?>">Dashboard</a>
+                            <a class="nav-link" href="<?php echo base_url('Welcome/dashboard'); ?>">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url('Welcome/classes'); ?>">Classes</a>
@@ -139,8 +139,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <button type="button" class="btn btn-info add-button" data-toggle="modal" data-target="#addRewardModal">Add Reward</button>
 
                         <nav class="nav mt-3">
-                            <a class="nav-link <?php if ($status == 'unredeemed') {echo 'active';}?>" href="<?php echo base_url('Welcome/rewards/unredeemed'); ?>">Not Redeemed</a>
-                            <a class="nav-link ml-3 <?php if ($status == 'redeemed') {echo 'active';}?>" href="<?php echo base_url('Welcome/rewards/redeemed'); ?>">Redeemed</a>
+                            <a class="nav-link <?php if ($status == 'redeemed') {echo 'active';}?>" href="<?php echo base_url('Welcome/rewards/unredeemed'); ?>">Not Redeemed</a>
+                            <a class="nav-link ml-3 <?php if ($status == 'unredeemed') {echo 'active';}?>" href="<?php echo base_url('Welcome/rewards/redeemed'); ?>">Redeemed</a>
                         </nav>
                         
                         <?php $i = 0; ?>

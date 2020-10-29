@@ -20,7 +20,13 @@ Class Attendance_Model extends CI_Model {
         if ($query->num_rows() > 0) {
             return false;
         } else {
+            $attendance_id = 'attendance' . rand();
+            while ($this->does_attendance_id_exist($attendance_id)) {
+                $attendance_id = 'attendance' . rand();
+            }
+
             $data = array (
+                'attendance_id' => $attendance_id,
                 'student_id' => $student_id,
                 'student_name' => $this->get_name($student_id),
                 'class' => $this->get_class($student_id),
@@ -29,23 +35,52 @@ Class Attendance_Model extends CI_Model {
     
             $this->db->insert('attendance', $data);
 
-            $this->db->select('days_attended', 'points');
-            $this->db->from('student');
-            $this->db->where('student_id', $student_id);
-            $query = $this->db->get();
-            $num_of_days_attended = $query->row('days_attended');
+            $num_of_days_attended = $this->update_days_attended($student_id);
 
-            $num_of_days_attended = $num_of_days_attended + 1;
-            $points = $num_of_days_attended;
+            $new_points = $this->update_student_points($student_id);
 
             $update_data = array (
                 'days_attended' => $num_of_days_attended,
-                'points' => $points,
+                'points' => $new_points,
             );
             $this->db->where('student_id', $student_id);
             $this->db->update('student', $update_data);
         }
     }
+
+    public function update_student_points($student_id) {
+        $this->db->select('points');
+        $this->db->from('student');
+        $this->db->where('student_id', $student_id);
+        $points = $this->db->get()->row('points');
+        $points = $points + 5;
+        return $points;
+    }
+
+    public function does_attendance_id_exist ($id) {
+        $this->db->select('*');
+        $this->db->from('attendance');
+        $this->db->where('attendance_id', $id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_days_attended ($student_id) {
+        $this->db->select('*');
+        $this->db->from('attendance');
+        $this->db->where('student_id', $student_id);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function check_for_attendance_updates ($class, $date) {
+
+    } 
+
 
     public function get_name ($student_id) {
         $this->db->select('name');
@@ -101,6 +136,20 @@ Class Attendance_Model extends CI_Model {
         }
 
         return $data;
+    }
+
+    public function get_attendance_dates ($student_id) {
+        $this->db->select('date');
+        $this->db->from('attendance');
+        $this->db->where('student_id', $student_id);
+        $query = $this->db->get();
+
+        $array = array();
+        foreach ($query->result_array() as $row) {
+            $array[] = $row['date'];
+        }
+
+        return $array;
     }
 
 }

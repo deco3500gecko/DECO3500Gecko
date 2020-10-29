@@ -17,6 +17,10 @@ class Welcome extends CI_Controller {
 	}
 
 	public function index() {
+		$this->load->view('welcome_message');
+	}
+
+	public function dashboard() {
 		// get class
 		$class = $this->input->post('class');
 		if (!isset($class)) {
@@ -46,7 +50,7 @@ class Welcome extends CI_Controller {
 		$data['class'] = $class;
 		$data['classes'] = $classes;
 
-		$this->load->view('welcome_message', $data);
+		$this->load->view('dashboard', $data);
 	}
 
 	public function roll_call() {
@@ -55,7 +59,10 @@ class Welcome extends CI_Controller {
 		foreach ($student_ids as $student_id) {
 			$this->Attendance_Model->insert_attendance_data($student_id, $date);
 		}
-		$this->index();
+
+		$attendance_list = $this->Attendance_Model->get_class_attendance($date, $class);
+
+		$this->dashboard();
 	}
 
 	public function classes() {
@@ -98,7 +105,17 @@ class Welcome extends CI_Controller {
 	}
 
 	public function view_profile($student_id) {
-		$data = $this->Student_Model->get_student($student_id);
+		$student_data = $this->Student_Model->get_student($student_id);
+		
+		$data['name'] = $student_data->name;
+		$data['student_id'] = $student_data->student_id;
+		$data['team'] = $student_data->team;
+		$data['dietary'] = $student_data->dietary;
+		$data['extra'] = $student_data->extra;
+		$data['days_attended'] = $student_data->days_attended;
+		
+
+		$data['dates'] = $this->Attendance_Model->get_attendance_dates($student_id);
 
 		$this->load->view('view_profile', $data);
 	}

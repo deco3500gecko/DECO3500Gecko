@@ -1,4 +1,24 @@
-# How to Deploy the Prototype
+# Wiki Outline
+
+Links to each page of the wiki
+
+# Promotional Material
+
+## Website
+
+Link to website: http://glennb19.sg-host.com/
+
+![website](https://user-images.githubusercontent.com/45459833/97549299-f57d4980-1a1b-11eb-8a3e-6e15fab081e9.JPG)
+
+## Poster
+
+Link to download poster: https://smallpdf.com/shared#st=c25bf98d-e5bc-49ca-93fd-56ca94075e73&fn=DECO3500+Poster.pdf&ct=1603963091874&tl=share-document&rf=link
+
+![DECO3500 Poster](https://user-images.githubusercontent.com/45459833/97549529-3aa17b80-1a1c-11eb-89da-3b46df97c190.png)
+
+# Prototype Details
+
+## How to Deploy the Prototype
 
 Our prototype uses CodeIgniter, a rapid web development framework for PHP. In order to deploy the prototype, 
 1. You must install CodeIgniter (preferably CodeIgniter 3) from [https://codeigniter.com/download](https://codeigniter.com/download) and, because the project is running on a localhost server, you will also need to install XAMPP from [https://www.apachefriends.org/index.html](https://www.apachefriends.org/index.html).
@@ -21,11 +41,11 @@ Our prototype uses CodeIgniter, a rapid web development framework for PHP. In or
 5. To access and use the prototype, type localhost/name_of_your_folder in your browser URL.
 
 
-# How to Use the Prototype
+## How to Use the Prototype
 
 This prototype is designed to be used primarily by teachers and to be displayed to classroom via a projector or large screen. Students of the class cannot directly interact with the prototype, but their actions will impact several outcomes. Hence, many of the features implemented in the prototype are designed for the teacher. It is also designed to be used in a short period at the start of the day, where teachers will typically do a roll call. There are four main pages: Dashboard, Classes, Teams, and Rewards.
 
-## Dashboard
+### Dashboard
 
 ![project](https://user-images.githubusercontent.com/45459833/97136229-497afa80-179e-11eb-8671-4cc89b383584.JPG)
 
@@ -35,19 +55,19 @@ The Dashboard page will be the main page where both the teacher and the students
 
 Furthermore, the position of the rockets, which represents the teams, will change by moving closer to the moon/planet. The teacher will be able to change the classroom and the date when completing the roll call.
 
-## Classes
+### Classes
 
 ![classes](https://user-images.githubusercontent.com/45459833/97139633-a9759f00-17a6-11eb-8adf-0e1bb43a8517.JPG)
 
 The Classes page shows a summarised description of the students from each class. The teacher is able to add/delete students and edit student information.
 
-## Teams
+### Teams
 
 ![teams](https://user-images.githubusercontent.com/45459833/97139844-1b4de880-17a7-11eb-96f0-2a674bef154f.JPG)
 
 The Teams page shows each of the teams for each class. The teacher is able to add/delete teams, edit team information, and change team members.
 
-## Rewards
+### Rewards
 
 ![rewards](https://user-images.githubusercontent.com/45459833/97139956-6962ec00-17a7-11eb-8aa9-499077884e8f.JPG)
 

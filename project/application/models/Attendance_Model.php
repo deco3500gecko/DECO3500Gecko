@@ -130,9 +130,11 @@ Class Attendance_Model extends CI_Model {
         foreach ($results as $result) {
             $student_id = $result->student_id;
             $team = $this->get_team($student_id);
-            $team_points = $data[$team];
-            $new_team_points = $team_points + 1;
-            $data[$team] = $new_team_points;
+            if ($team != '') {
+                $team_points = $data[$team];
+                $new_team_points = $team_points + 1;
+                $data[$team] = $new_team_points;
+            }
         }
 
         return $data;

@@ -30,11 +30,11 @@ Our prototype uses CodeIgniter, a rapid web development framework for PHP. In or
 
 ![xamppPanel](https://user-images.githubusercontent.com/45459833/97135772-0d936580-179d-11eb-9e7c-848044a56e81.png)
 
-3. Download this project's source code. Navigate to where XAMPP is installed - usually this is in your main drive. Then, navigate to 'htdocs' and create a folder named anything (this name will be used to access the prototype on the localhost server. Place the previously downloaded source code into this folder.
+3. Download this project's source code. Navigate to where XAMPP is installed - usually this is in your main drive. Then, navigate to 'htdocs' and create a folder named anything (this name will be used to access the prototype on the localhost server. Place the contents of previously downloaded 'project' folder into this folder.
 
 ![htdocs](https://user-images.githubusercontent.com/45459833/97136024-b6da5b80-179d-11eb-9cec-009e7f45da6c.JPG)
 
-4. In the source code there should be a file called 'deco3500.sql'. Keep this file in an easy to access place. Go to your browser and type localhost/phpmyadmin in the URL. There, import the sql file.
+4. In the repository there should also be a file called 'deco3500.sql'. Keep this file in an easy to access place. Go to your browser and type localhost/phpmyadmin in the URL. There, import the sql file.
 
 ![phpmyadmin](https://user-images.githubusercontent.com/45459833/97136114-fa34ca00-179d-11eb-839a-3491090aab28.JPG)
 
@@ -59,7 +59,7 @@ Furthermore, the position of the rockets, which represents the teams, will chang
 
 ![classes](https://user-images.githubusercontent.com/45459833/97139633-a9759f00-17a6-11eb-8adf-0e1bb43a8517.JPG)
 
-The Classes page shows a summarised description of the students from each class. The teacher is able to add/delete students and edit student information.
+The Classes page shows a summarised description of the students from each class. The teacher is able to add/delete students and edit/view student information.
 
 ### Teams
 

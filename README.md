@@ -1,6 +1,36 @@
 # Wiki Outline
 
-Links to each page of the wiki
+### [Home](https://github.com/deco3500gecko/DECO3500Gecko/wiki)
+
+[⠀⠀Promotional Material](https://github.com/deco3500gecko/DECO3500Gecko/wiki#promotional-material)
+
+### [Ongoing Documentation & Design Process](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process)
+
+[‎‎⠀⠀Interaction Design Lifecycle](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#interaction-design-lifecycle)
+
+**[Design Process](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#design-process)**
+
+[⠀⠀Week 6 - Concept Proposal and Establishing Requirements I](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-6-concept-proposal--establishing-requirements---contextual-inquiryinterviews-internal-standup-1)
+
+[⠀⠀Week 7 - Establishing Requirements II: Contextual Inquiry and Analysis](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-7establishing-requirements---contextual-inquiry-analysis-of-contextual-inquiry)
+
+[⠀⠀Week 8 - Designing the Medium-Fidelity Prototype](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-8---designing-medium-fidelity-prototype-standup-meeting)
+
+[⠀⠀Week 9 - Designing Alternatives](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-9---designing-alternatives)
+
+[⠀⠀Week 10 - Evaluation](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-10---evaluationab-testing-survey-w-open-ended-questionnaire-2nd-official-standup-meeting)
+
+[⠀⠀Week 11 - Designing High-Fidelity Prototype and Prototype Implementation I](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-11)
+
+[⠀⠀Week 12 - Prototype Implementation II](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#week-12)
+
+[⠀⠀List of Work Throughout Project](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Ongoing-Documentation-&-Design-Process#list-of-work-throughout-project)
+
+### [Proof of Concept Prototype Details](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Prototype)
+
+[⠀⠀How to Deploy the Prototype](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Prototype#how-to-deploy-the-prototype)
+
+[⠀⠀How to Use the Prototype](https://github.com/deco3500gecko/DECO3500Gecko/wiki/Prototype#how-to-use-the-prototype)
 
 # Promotional Material
 
